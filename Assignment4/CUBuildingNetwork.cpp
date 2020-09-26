@@ -141,6 +141,66 @@ void CUBuildingNetwork::printNetwork() {
  */
 void CUBuildingNetwork::deleteCUBuilding(string buildingName) {
     //TODO: Complete this function
+    if (isEmpty())
+    {
+        cout << "List is empty" << endl;
+    }
+    else
+    {
+        CUBuilding *curr = head;
+        CUBuilding *previous = head;
+        CUBuilding *temp;
+        temp = searchForBuilding(buildingName);
+
+        if (temp == nullptr)
+        {
+            cout << "Building does not exist" << endl;
+        }
+        else if (temp == head)
+        {
+            if (head->next != nullptr)
+            {
+                head = head->next;
+                curr->next = nullptr;
+                cout << "deleting: " << curr->name << endl;
+                delete curr;
+                curr = head;
+                
+            }
+            else
+            {
+                cout << "deleting: " << curr->name << endl;
+                delete curr;
+                head = nullptr;
+            }
+        }
+        else
+        {
+            while (curr != nullptr)
+            {
+
+                if (curr->name == buildingName)
+                {
+                    cout << "Building found: " << buildingName << endl;
+                    previous->next = curr->next;
+                    curr->next = nullptr;
+                    delete curr;
+                    break;
+
+                }
+                else
+                {
+                    previous = curr;
+                    curr = curr->next;
+                }
+                
+            }
+        }
+
+        
+    }
+    
+    
 }
 
 /*
@@ -150,6 +210,12 @@ void CUBuildingNetwork::deleteCUBuilding(string buildingName) {
 */
 CUBuilding* CUBuildingNetwork::createLoop(string buildingName) {
     //TODO: Complete this function
+    CUBuilding *temp = searchForBuilding(buildingName);
+
+    if (temp == nullptr)
+    {
+
+    }
 }
 
 /*
@@ -160,6 +226,35 @@ CUBuilding* CUBuildingNetwork::createLoop(string buildingName) {
 void CUBuildingNetwork::deleteEntireNetwork()
 {
     //TODO: Complete this function
+    CUBuilding *curr = head;
+    CUBuilding *prev = head;
+
+    if (isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        while (curr != nullptr)
+        {
+            if (head->next == nullptr)
+            {
+                head = nullptr;
+                cout << "deleting: " << curr->name << endl;
+                delete curr;
+                cout << "Deleted network" << endl;
+                break;
+            }
+            prev = curr;
+            curr = curr->next;
+            prev->next = nullptr;
+            head = curr;
+            cout << "deleting: " << prev->name << endl;
+            delete prev;
+            
+
+        }
+    }
 }
 
 /*
