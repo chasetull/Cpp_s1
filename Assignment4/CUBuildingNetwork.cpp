@@ -210,12 +210,56 @@ void CUBuildingNetwork::deleteCUBuilding(string buildingName) {
 */
 CUBuilding* CUBuildingNetwork::createLoop(string buildingName) {
     //TODO: Complete this function
-    CUBuilding *temp = searchForBuilding(buildingName);
-
-    if (temp == nullptr)
+    CUBuilding *returnNode;
+    if (isEmpty())
     {
+        returnNode = nullptr;
+    }
+    else
+    {
+        CUBuilding *temp = searchForBuilding(buildingName);
+        CUBuilding *foundn = head;
+        CUBuilding *curr = head;
+
+        if (temp == nullptr) //building not found, return ll tail
+        {
+            while (curr->next != nullptr)
+            {
+                //prevc = curr;
+                curr = curr->next;
+            }
+            returnNode = curr;
+        }
+        else
+        {
+            while (curr != nullptr)
+            {
+                if (curr->name == buildingName)
+                {
+                    foundn = curr; //node to return, before found
+                    //curr = curr->next;
+
+                }
+
+                if (curr->next == nullptr) //if at ll tail
+                {
+                    returnNode = curr;
+                    curr->next = foundn;
+                    break;
+                }
+
+                curr = curr->next;
+                
+            }
+
+            //curr->next = temp; //loop from ll tail to temp var
+            //return curr; //return tail (val before loop)
+
+        }
 
     }
+
+    return returnNode;
 }
 
 /*
@@ -263,6 +307,47 @@ void CUBuildingNetwork::deleteEntireNetwork()
  */
 bool CUBuildingNetwork::detectLoop() {
     //TODO: Complete this function
+    int count = 0;
+    CUBuilding *slow = head;
+    CUBuilding *fast = head;
+    bool isLoop = false;
+
+    if (isEmpty())
+    {
+        cout << "Empty ll, loop error" << endl;
+    }
+    else if ((head->next == nullptr) || (head->next == head))
+    {
+        cout << "One node in ll, loop error" << endl;
+    }
+    else
+    {
+
+        while (!isLoop)
+        {
+            //loop check, if loop set isLoop to true
+            if (count > 50)
+            {
+                break;
+            }
+            else
+            {
+                slow = slow->next;
+                fast = fast->next->next;
+                if (slow == fast)
+                {
+                    //loop detected
+                    isLoop = true;
+                    break;
+                }
+                count++;
+            }
+
+
+        }
+    }
+
+    return isLoop;
 }
 
 /*
@@ -274,4 +359,90 @@ bool CUBuildingNetwork::detectLoop() {
 void CUBuildingNetwork:: readjustNetwork(int start_index, int end_index)
 {
     //TODO: Complete this function
+    int totalInd = -1;
+    CUBuilding *curr = head;
+    CUBuilding *tail = head;
+    CUBuilding *currS = head;
+    CUBuilding *currE = head;
+    CUBuilding *aftE = head;
+    CUBuilding *preS;
+
+    if (isEmpty())
+    {
+        cout << "Linked List is Empty" << endl;
+    }
+    else
+    {
+        while (curr != nullptr)
+        {
+            tail = curr;
+            curr = curr->next;
+            totalInd++;
+        }
+        cout << "total: " << totalInd << endl;
+        
+
+        if ((start_index < 0) || (start_index > totalInd))
+        {
+            cout << "Invalid start index" << endl;
+            return;
+        }
+        else if ((end_index < 0) || (end_index > totalInd))
+        {
+            cout << "Invalid end index" << endl;
+            return;
+        }
+        else if (start_index > end_index)
+        {
+            cout << "Invalid indices" << endl;
+            return;
+        }
+        else
+        {
+            int findS = 0;
+            while (findS < start_index) //find start node
+            {
+                preS = currS;
+                currS = currS->next;
+                findS++;
+            }
+            
+            int findE = 0;
+            while (findE < end_index+1) //find end node
+            {
+                currE = aftE;
+                aftE = aftE->next;
+                findE++;
+            }
+            cout << "Start n: " << currS->name << endl;
+            cout << "End n: " << currE->name << endl;
+            cout << "Tail n: " << tail->name << endl;
+
+            if (currE == tail)
+            {
+                return;
+            }
+
+            else if (currS == head)
+            {
+                tail->next = currS;
+                currE->next = nullptr;
+                head = aftE;
+            }
+
+            else
+            {
+                preS->next = aftE;
+                tail->next = currS;
+                currE->next = nullptr;
+            }
+            
+
+            
+
+
+        }
+        
+    }
+    
 }
