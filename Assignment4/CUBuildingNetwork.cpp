@@ -154,7 +154,7 @@ void CUBuildingNetwork::deleteCUBuilding(string buildingName) {
 
         if (temp == nullptr)
         {
-            cout << "Building does not exist" << endl;
+            cout << "Building does not exist." << endl;
         }
         else if (temp == head)
         {
@@ -165,7 +165,6 @@ void CUBuildingNetwork::deleteCUBuilding(string buildingName) {
                 cout << "deleting: " << curr->name << endl;
                 delete curr;
                 curr = head;
-                
             }
             else
             {
@@ -178,29 +177,21 @@ void CUBuildingNetwork::deleteCUBuilding(string buildingName) {
         {
             while (curr != nullptr)
             {
-
                 if (curr->name == buildingName)
                 {
-                    cout << "Building found: " << buildingName << endl;
                     previous->next = curr->next;
                     curr->next = nullptr;
                     delete curr;
                     break;
-
                 }
                 else
                 {
                     previous = curr;
                     curr = curr->next;
                 }
-                
             }
         }
-
-        
     }
-    
-    
 }
 
 /*
@@ -225,7 +216,6 @@ CUBuilding* CUBuildingNetwork::createLoop(string buildingName) {
         {
             while (curr->next != nullptr)
             {
-                //prevc = curr;
                 curr = curr->next;
             }
             returnNode = curr;
@@ -237,8 +227,6 @@ CUBuilding* CUBuildingNetwork::createLoop(string buildingName) {
                 if (curr->name == buildingName)
                 {
                     foundn = curr; //node to return, before found
-                    //curr = curr->next;
-
                 }
 
                 if (curr->next == nullptr) //if at ll tail
@@ -249,14 +237,8 @@ CUBuilding* CUBuildingNetwork::createLoop(string buildingName) {
                 }
 
                 curr = curr->next;
-                
             }
-
-            //curr->next = temp; //loop from ll tail to temp var
-            //return curr; //return tail (val before loop)
-
         }
-
     }
 
     return returnNode;
@@ -295,8 +277,6 @@ void CUBuildingNetwork::deleteEntireNetwork()
             head = curr;
             cout << "deleting: " << prev->name << endl;
             delete prev;
-            
-
         }
     }
 }
@@ -342,8 +322,6 @@ bool CUBuildingNetwork::detectLoop() {
                 }
                 count++;
             }
-
-
         }
     }
 
@@ -379,8 +357,7 @@ void CUBuildingNetwork:: readjustNetwork(int start_index, int end_index)
             curr = curr->next;
             totalInd++;
         }
-        cout << "total: " << totalInd << endl;
-        
+        //cout << "total: " << totalInd << endl;
 
         if ((start_index < 0) || (start_index > totalInd))
         {
@@ -414,9 +391,9 @@ void CUBuildingNetwork:: readjustNetwork(int start_index, int end_index)
                 aftE = aftE->next;
                 findE++;
             }
-            cout << "Start n: " << currS->name << endl;
-            cout << "End n: " << currE->name << endl;
-            cout << "Tail n: " << tail->name << endl;
+            //cout << "Start n: " << currS->name << endl;
+            //cout << "End n: " << currE->name << endl;
+            //cout << "Tail n: " << tail->name << endl;
 
             if (currE == tail)
             {
@@ -436,13 +413,6 @@ void CUBuildingNetwork:: readjustNetwork(int start_index, int end_index)
                 tail->next = currS;
                 currE->next = nullptr;
             }
-            
-
-            
-
-
         }
-        
     }
-    
 }
