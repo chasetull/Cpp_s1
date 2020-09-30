@@ -287,44 +287,29 @@ void CUBuildingNetwork::deleteEntireNetwork()
  */
 bool CUBuildingNetwork::detectLoop() {
     //TODO: Complete this function
-    int count = 0;
     CUBuilding *slow = head;
-    CUBuilding *fast = head;
+    CUBuilding *fast = head->next;
     bool isLoop = false;
 
     if (isEmpty())
     {
         cout << "Empty ll, loop error" << endl;
-    }
-    else if ((head->next == nullptr) || (head->next == head))
-    {
-        cout << "One node in ll, loop error" << endl;
+        
     }
     else
     {
-
-        while (!isLoop)
+        while ((fast != nullptr) && (fast->next != nullptr) && (slow != nullptr))
         {
-            //loop check, if loop set isLoop to true
-            if (count > 50)
+            if (fast == slow)
             {
+                isLoop = true; //set true
                 break;
             }
-            else
-            {
-                slow = slow->next;
-                fast = fast->next->next;
-                if (slow == fast)
-                {
-                    //loop detected
-                    isLoop = true;
-                    break;
-                }
-                count++;
-            }
+            fast = fast->next->next;
+            slow = slow->next;
         }
     }
-
+    
     return isLoop;
 }
 
