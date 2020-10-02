@@ -31,26 +31,62 @@ bool isNumber(string s)
 StackCalculator::StackCalculator()
 {
   //TODO:
+  stackHead = nullptr;
 }
 
 StackCalculator::~StackCalculator()
 {
   //TODO:
+  while (!isEmpty())
+  {
+    pop();
+  }
 }
 
 bool StackCalculator::isEmpty()
 {
 	//TODO:
+  return (stackHead == nullptr);
 }
 
 void StackCalculator::push(float number)
 {
   //TODO:
+  if (isEmpty())
+  {
+    Operand *newOp = new Operand;
+    newOp->next = nullptr;
+    newOp->number = number;
+    stackHead = newOp;
+  }
+  else
+  {
+    Operand *newOp = new Operand;
+    newOp->number = number;
+    newOp->next = stackHead;
+    stackHead = newOp;
+    cout << "pushed: " << stackHead->number << endl;
+
+  }
+  
 }
 
 void StackCalculator::pop()
 {
 	//TODO:
+  if (isEmpty())
+  {
+    cout << "empty list" << endl;
+  }
+  else
+  {
+    Operand *delOp;
+    delOp = stackHead;
+    stackHead = stackHead->next;
+    delOp->next = nullptr;
+    cout "pop: " << delOp->number << endl;
+  }
+  
 }
 
 Operand* StackCalculator::peek()
