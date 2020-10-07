@@ -20,7 +20,7 @@ JobQueue::~JobQueue()
 
 bool JobQueue::isEmpty()
 {
-    return (queueFront == 0);
+    return (queueFront == queueEnd);
 }
 
 bool JobQueue::isFull()
@@ -36,6 +36,16 @@ void JobQueue::enqueue(std::string job)
         queueEnd++;
         counter++;
     }
+    else if (isFull())
+    {
+        cout << "Queue full, cannot queue" << endl;
+    }
+    else
+    {
+        queue[queueEnd] = job;
+        queueEnd++;
+    }
+    
 }
 
 void JobQueue::dequeue()
@@ -46,7 +56,8 @@ void JobQueue::dequeue()
     }
     else
     {
-        /* code */
+        queue[queueFront] = "";
+        queueFront++;
     }
     
 }
@@ -60,7 +71,7 @@ std::string JobQueue::peek()
     }
     else
     {
-        returnstr = queueFront;
+        returnstr = queue[queueFront];
     }
 
     return returnstr;
@@ -68,6 +79,29 @@ std::string JobQueue::peek()
 
 int JobQueue::queueSize()
 {
-    return 0;
+    int returnSize;
+    int gotQFront = getQueueFront();
+    int gotQEnd = getQueueEnd();
+    bool qFull = isFull();
+
+    if (isEmpty())
+    {
+        returnSize = 0;
+    }
+    else if (gotQEnd == gotQFront+1) //one elem in arr?
+    {
+        returnSize = 1;
+    }
+    else if (qFull) //array full
+    {
+        returnSize = 20;
+    }
+    else
+    {
+        int indexDiff = gotQEnd - gotQFront;
+        returnSize = indexDiff;
+    }
+
+    return returnSize;
 }
 

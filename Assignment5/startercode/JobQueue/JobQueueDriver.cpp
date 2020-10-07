@@ -30,11 +30,14 @@ void menu()
 int main(/*int argc, char const *argv[]*/)
 {
 	string imp;
-	//bool isQuit = false;
+	JobQueue *jq = new JobQueue;
+
 	while (true)
 	{
 		menu();
+		cout << "#>";
 		getline(cin, imp);
+		cout << endl;
 
 		int inp = stoi(imp);
 		
@@ -44,8 +47,37 @@ int main(/*int argc, char const *argv[]*/)
 		}
 		else if (inp == 1) //add jobs
 		{
-			cout << "ADD JOB" << endl;
-			break;
+			string amntJobs;
+			cout << "Enter the number of jobs to be created:" << endl;
+			cout << "#>";
+			getline(cin, amntJobs);
+			cout << endl;
+			int numJobs = stoi(amntJobs);
+			cout << numJobs << " jobs to create" << endl;
+
+			if (numJobs > 20 || numJobs < 1)
+			{
+				cout << "Error, wrong amount of jobs input" << endl;
+			}
+			else
+			{
+				int parseJob = 1;
+				string indivJobName;
+				while (numJobs > 0)
+				{
+					cout << "job" << parseJob << ":" << endl;
+					getline(cin, indivJobName);
+					jq->enqueue(indivJobName);  //enqueue job
+					parseJob++;
+					numJobs--;
+				}
+				string showJob = jq->peek();
+				cout << "jq peek: " << showJob << endl;
+			}
+			
+			
+			//break;
+
 		}
 		else if (inp == 2) //delete jobs
 		{
@@ -54,8 +86,8 @@ int main(/*int argc, char const *argv[]*/)
 		}
 		else if (inp == 3) //show q size and exit
 		{
-			//isQuit = true;
-			cout << "quitting..." << endl;
+			int qSize = jq->queueSize();
+			cout << "Number of jobs in the queue:" << qSize << endl;
 			exit(0);
 		}
 		else
@@ -63,5 +95,7 @@ int main(/*int argc, char const *argv[]*/)
 			cout << "???????" << endl;
 		}
 		
-	}
+	} //end program
+
+	return 0;
 }
