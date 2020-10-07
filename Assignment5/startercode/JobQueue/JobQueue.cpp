@@ -61,7 +61,6 @@ void JobQueue::dequeue()
     }
     else
     {
-        cout << "dequeue: " << queue[queueFront] << endl;
         queue[queueFront] = "";
         queueFront++;
         counter--;

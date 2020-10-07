@@ -53,7 +53,7 @@ int main(/*int argc, char const *argv[]*/)
 			getline(cin, amntJobs);
 			cout << endl;
 			int numJobs = stoi(amntJobs);
-			cout << numJobs << " jobs to create" << endl;
+			//cout << numJobs << " jobs to create" << endl;
 
 			if (numJobs > 20 || numJobs < 1)
 			{
@@ -73,24 +73,54 @@ int main(/*int argc, char const *argv[]*/)
 					parseJob++;
 					numJobs--;
 				}
+				/*
 				string showJob = jq->peek();
 				cout << "jq peek: " << showJob << endl;
+				*/
 			}
 		}
 
 		else if (inp == 2) //delete jobs
 		{
-			string peekHead = jq->peek();
-			cout << "head before: " << peekHead << endl;
-			jq->dequeue();
-			peekHead = jq->peek();
-			cout << "head after: " << peekHead << endl;
+			string amntJobs;
+			cout << "Enter the number of jobs to be dispatched:" << endl;
+			cout << "#>";
+			getline(cin, amntJobs);
+			cout << endl;
+			int numJobs = stoi(amntJobs);
+
+			if (numJobs < 0)
+			{
+				cout << "Error, wrong input" << endl;
+			}
+			else
+			{
+				int qSize = jq->queueSize();
+				bool overBoundMessage = false;
+				if (numJobs > qSize)
+				{
+					overBoundMessage = true;
+					numJobs = jq->getQueueEnd();
+				}
+
+				while (numJobs > 0)
+				{
+					cout << "Dispatched: " << jq->peek() << endl;
+					jq->dequeue();
+					numJobs--;
+				}
+
+				if (overBoundMessage)
+				{
+					cout << "No more jobs to dispatch from queue" << endl;
+				}
+			}
 		}
 
 		else if (inp == 3) //show q size and exit
 		{
 			int qSize = jq->queueSize();
-			cout << "Number of jobs in the queue:" << qSize << endl;
+			cout << "Number of jobs in the queue: " << qSize << endl;
 			exit(0);
 		}
 		else
