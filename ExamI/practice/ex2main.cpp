@@ -5,6 +5,7 @@ using namespace std;
 
 int main()
 {
+    int *ptrr = 10;
     bool quitNow = false;
     while (!quitNow)
     {

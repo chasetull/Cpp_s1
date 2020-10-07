@@ -58,6 +58,7 @@ void StackCalculator::push(float number)
     newOp->next = nullptr;
     newOp->number = number;
     stackHead = newOp;
+    cout << "HEAD: " << stackHead->number << endl;
   }
   else
   {
@@ -66,9 +67,7 @@ void StackCalculator::push(float number)
     newOp->next = stackHead;
     stackHead = newOp;
     cout << "pushed: " << stackHead->number << endl;
-
   }
-  
 }
 
 void StackCalculator::pop()
@@ -76,7 +75,14 @@ void StackCalculator::pop()
 	//TODO:
   if (isEmpty())
   {
-    cout << "empty list" << endl;
+    cout << "Stack empty, cannot pop a job" << endl;
+  }
+  else if (stackHead->next == nullptr)
+  {
+    Operand *n = stackHead;
+    stackHead = nullptr;
+    cout << "pop: " << n->number << endl;
+    delete n;
   }
   else
   {
@@ -84,15 +90,25 @@ void StackCalculator::pop()
     delOp = stackHead;
     stackHead = stackHead->next;
     delOp->next = nullptr;
-    cout "pop: " << delOp->number << endl;
+    cout << "pop: " << delOp->number << endl;
+    delete delOp;
   }
-  
 }
 
 Operand* StackCalculator::peek()
 {
 	//TODO:
-    return nullptr;// remove this line if you want
+  Operand *toReturn = nullptr;
+  if (isEmpty())
+  {
+    cout << "Stack empty, cannot peek" << endl;
+  }
+  else
+  {
+    toReturn = stackHead;
+  }
+  
+    return toReturn;
 }
 
 bool StackCalculator:: evaluate(string* s, int size)
@@ -105,6 +121,54 @@ bool StackCalculator:: evaluate(string* s, int size)
             5.Handle the boundery cases as required.
             6.Read the writeup for more details
     */
+    bool isValid = false;
+    //Operand *tempstack = stackHead;
 
-		return true;
+    for (int i=size-1; i>-1; i--) //parsing arr from back
+    {
+      isValid = isNumber(s[i]);
+
+      if (isValid) //is operand (num)
+      {
+        cout << "is number" << endl;
+        float si = stoi(s[i]);
+        push(si);
+        peek();
+      }
+      else if (s[i] == "*" || s[i] == "+")//is operator 
+      {
+        cout << "is operator" << endl;
+        if (s[i] == "*")
+        {
+          float s1 = peek()->number;
+          pop();
+          float s2 = peek()->number;
+          pop();
+
+          float sT = s1 * s2;
+          push(sT);
+          peek();
+        }
+        else
+        {
+          float s1 = peek()->number;
+          pop();
+          float s2 = peek()->number;
+          pop();
+
+          float sT = s1 + s2;
+          push(sT);
+          peek();
+        }
+        
+      }
+      else
+      {
+        cout << "??? input" << endl;
+      }
+      
+      
+    }
+
+		return isValid;
 }

@@ -19,6 +19,7 @@ private:
 
 public:
   JobQueue();
+  ~JobQueue(); //ADDED MIGHT NOT NEED
   bool isEmpty();
   bool isFull();
   void enqueue(std::string job);
