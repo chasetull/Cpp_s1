@@ -20,7 +20,7 @@ JobQueue::~JobQueue()
 
 bool JobQueue::isEmpty()
 {
-    return (queueFront == queueEnd);
+    return (counter == 0);
 }
 
 bool JobQueue::isFull()
@@ -44,6 +44,11 @@ void JobQueue::enqueue(std::string job)
     {
         queue[queueEnd] = job;
         queueEnd++;
+        counter++;
+        if (queueEnd > 29)
+        {
+            queueEnd = 0;
+        }
     }
     
 }
@@ -56,8 +61,15 @@ void JobQueue::dequeue()
     }
     else
     {
+        cout << "dequeue: " << queue[queueFront] << endl;
         queue[queueFront] = "";
         queueFront++;
+        counter--;
+        if (queueFront > 29) //potential to break?
+        {
+            queueFront = 0;
+            queueEnd = 0;
+        }
     }
     
 }

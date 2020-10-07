@@ -66,7 +66,9 @@ int main(/*int argc, char const *argv[]*/)
 				while (numJobs > 0)
 				{
 					cout << "job" << parseJob << ":" << endl;
+					cout << "#>";
 					getline(cin, indivJobName);
+					cout << endl;
 					jq->enqueue(indivJobName);  //enqueue job
 					parseJob++;
 					numJobs--;
@@ -74,16 +76,17 @@ int main(/*int argc, char const *argv[]*/)
 				string showJob = jq->peek();
 				cout << "jq peek: " << showJob << endl;
 			}
-			
-			
-			//break;
-
 		}
+
 		else if (inp == 2) //delete jobs
 		{
-			cout << "DELETE JOB" << endl;
-			break;
+			string peekHead = jq->peek();
+			cout << "head before: " << peekHead << endl;
+			jq->dequeue();
+			peekHead = jq->peek();
+			cout << "head after: " << peekHead << endl;
 		}
+
 		else if (inp == 3) //show q size and exit
 		{
 			int qSize = jq->queueSize();
