@@ -50,20 +50,22 @@ int main()
   else
   {
     bool eval = stack.evaluate(inparr, numElement);
+
+    /* TODO - Validate the expression
+    1. If valid then print the result cout << "Result= "<<result << endl;
+    2. Else, print "Invalid expression"
+    */
+
+    if (eval)
+    {
+      Operand *result = stack.peek();
+      cout << "Result= " << result->number << endl;
+    }
   }
   
 
-  /* TODO - Validate the expression
-      1. If valid then print the result cout << "Result= "<<result << endl;
-      2. Else, print "Invalid expression"
-  if (eval)
-  {
-    cout << "Result= " << endl;
-  }
-  else
-  {
-    cout << "Invalid expression" << endl;
-  }*/
+
+  
   
  
   return 0;

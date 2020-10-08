@@ -58,7 +58,7 @@ void StackCalculator::push(float number)
     newOp->next = nullptr;
     newOp->number = number;
     stackHead = newOp;
-    cout << "HEAD: " << stackHead->number << endl;
+    //cout << "HEAD: " << stackHead->number << endl;
   }
   else
   {
@@ -66,7 +66,7 @@ void StackCalculator::push(float number)
     newOp->number = number;
     newOp->next = stackHead;
     stackHead = newOp;
-    cout << "pushed: " << stackHead->number << endl;
+    //cout << "pushed: " << stackHead->number << endl;
   }
 }
 
@@ -75,13 +75,13 @@ void StackCalculator::pop()
 	//TODO:
   if (isEmpty())
   {
-    cout << "Stack empty, cannot pop a job" << endl;
+    cout << "Stack empty, cannot pop an item." << endl;
   }
   else if (stackHead->next == nullptr)
   {
     Operand *n = stackHead;
     stackHead = nullptr;
-    cout << "pop: " << n->number << endl;
+    //cout << "pop: " << n->number << endl;
     delete n;
   }
   else
@@ -90,7 +90,7 @@ void StackCalculator::pop()
     delOp = stackHead;
     stackHead = stackHead->next;
     delOp->next = nullptr;
-    cout << "pop: " << delOp->number << endl;
+    //cout << "pop: " << delOp->number << endl;
     delete delOp;
   }
 }
@@ -101,7 +101,7 @@ Operand* StackCalculator::peek()
   Operand *toReturn = nullptr;
   if (isEmpty())
   {
-    cout << "Stack empty, cannot peek" << endl;
+    cout << "Stack empty, cannot peek." << endl;
   }
   else
   {
@@ -122,6 +122,7 @@ bool StackCalculator:: evaluate(string* s, int size)
             6.Read the writeup for more details
     */
     bool isValid = false;
+    bool returnValid = false;
     //Operand *tempstack = stackHead;
 
     for (int i=size-1; i>-1; i--) //parsing arr from back
@@ -130,45 +131,51 @@ bool StackCalculator:: evaluate(string* s, int size)
 
       if (isValid) //is operand (num)
       {
-        cout << "is number" << endl;
-        float si = stoi(s[i]);
+        //cout << s[i] << " is number" << endl;
+        float si = stof(s[i]);
         push(si);
-        peek();
+        //peek();
       }
       else if (s[i] == "*" || s[i] == "+")//is operator 
       {
-        cout << "is operator" << endl;
-        if (s[i] == "*")
+        if (isEmpty())
         {
-          float s1 = peek()->number;
-          pop();
-          float s2 = peek()->number;
-          pop();
-
-          float sT = s1 * s2;
-          push(sT);
-          peek();
+          cout << "err: not enough operands" << endl;
+          return false;
         }
         else
         {
-          float s1 = peek()->number;
-          pop();
-          float s2 = peek()->number;
-          pop();
+          if (s[i] == "*")
+          {
+            float s1 = peek()->number;
+            pop();
+            float s2 = peek()->number;
+            pop();
 
-          float sT = s1 + s2;
-          push(sT);
-          peek();
+            float sT = s1 * s2;
+            push(sT);
+            returnValid = true;
+          }
+          else
+          {
+            float s1 = peek()->number;
+            pop();
+            float s2 = peek()->number;
+            pop();
+
+            float sT = s1 + s2;
+            push(sT);
+            returnValid = true;
+          }
         }
-        
       }
+
       else
       {
-        cout << "??? input" << endl;
+        cout << "err: invalid operation" << endl;
+        return false;
       }
-      
-      
     }
 
-		return isValid;
+		return returnValid;
 }

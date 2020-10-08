@@ -35,9 +35,7 @@ int main(/*int argc, char const *argv[]*/)
 	while (true)
 	{
 		menu();
-		cout << "#>";
 		getline(cin, imp);
-		cout << endl;
 
 		int inp = stoi(imp);
 		
@@ -49,9 +47,7 @@ int main(/*int argc, char const *argv[]*/)
 		{
 			string amntJobs;
 			cout << "Enter the number of jobs to be created:" << endl;
-			cout << "#>";
 			getline(cin, amntJobs);
-			cout << endl;
 			int numJobs = stoi(amntJobs);
 			//cout << numJobs << " jobs to create" << endl;
 
@@ -66,9 +62,7 @@ int main(/*int argc, char const *argv[]*/)
 				while (numJobs > 0)
 				{
 					cout << "job" << parseJob << ":" << endl;
-					cout << "#>";
 					getline(cin, indivJobName);
-					cout << endl;
 					jq->enqueue(indivJobName);  //enqueue job
 					parseJob++;
 					numJobs--;
@@ -84,9 +78,7 @@ int main(/*int argc, char const *argv[]*/)
 		{
 			string amntJobs;
 			cout << "Enter the number of jobs to be dispatched:" << endl;
-			cout << "#>";
 			getline(cin, amntJobs);
-			cout << endl;
 			int numJobs = stoi(amntJobs);
 
 			if (numJobs < 0)
@@ -112,7 +104,7 @@ int main(/*int argc, char const *argv[]*/)
 
 				if (overBoundMessage)
 				{
-					cout << "No more jobs to dispatch from queue" << endl;
+					cout << "No more jobs to be dispatched from queue" << endl;
 				}
 			}
 		}
@@ -120,7 +112,7 @@ int main(/*int argc, char const *argv[]*/)
 		else if (inp == 3) //show q size and exit
 		{
 			int qSize = jq->queueSize();
-			cout << "Number of jobs in the queue: " << qSize << endl;
+			cout << "Number of jobs in the queue:" << qSize << endl;
 			exit(0);
 		}
 		else

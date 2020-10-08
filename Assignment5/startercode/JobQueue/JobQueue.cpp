@@ -9,7 +9,7 @@ JobQueue::JobQueue()
     queueEnd = 0;
     counter = 0;
 }
-
+/*
 JobQueue::~JobQueue()
 {
     while (!isEmpty())
@@ -17,7 +17,7 @@ JobQueue::~JobQueue()
         dequeue();
     }
 }
-
+*/
 bool JobQueue::isEmpty()
 {
     return (counter == 0);
@@ -38,16 +38,16 @@ void JobQueue::enqueue(std::string job)
     }
     else if (isFull())
     {
-        cout << "Queue full, cannot queue" << endl;
+        cout << "Queue full, cannot add new job" << endl;
     }
     else
     {
         queue[queueEnd] = job;
         queueEnd++;
         counter++;
-        if (queueEnd > 29)
+        if (queueEnd > 19)
         {
-            queueEnd = 0;
+            queueEnd = queueFront;
         }
     }
     
@@ -57,14 +57,14 @@ void JobQueue::dequeue()
 {
     if (isEmpty())
     {
-        cout << "empty, nothing to dequeue" << endl;
+        cout << "Queue empty, cannot dequeue a job" << endl;
     }
     else
     {
         queue[queueFront] = "";
         queueFront++;
         counter--;
-        if (queueFront > 29) //potential to break?
+        if (queueFront > 19) //potential to break?
         {
             queueFront = 0;
             queueEnd = 0;
