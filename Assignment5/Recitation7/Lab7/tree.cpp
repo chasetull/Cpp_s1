@@ -65,9 +65,26 @@ void Tree::preOrderTraverse(Node *node)
 */
 void Tree::deleteTree(Node *node)
 {
-    if (node == NULL) return;
+    if (node == NULL) return; //if root null
 
     /*TODO first delete both subtrees */
+    if (node == root)
+    {
+      if (node->left && node->right == nullptr) //last node in tree
+      {
+        delete node;
+        root = nullptr;
+      }
+      else if (node->right == nullptr)
+      {
+
+      }
+      else if (node->left == nullptr)
+      {
+        
+      }
+    }
+    
 
     /* TODO then delete the node */
     cout<<"\n Deleting node:"<< node->data;
