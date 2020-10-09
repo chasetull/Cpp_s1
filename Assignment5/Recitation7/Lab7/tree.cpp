@@ -1,3 +1,4 @@
+//Chase Tullar
 #include <iostream>
 #include "tree.hpp"
 using namespace std;
@@ -68,26 +69,12 @@ void Tree::deleteTree(Node *node)
     if (node == NULL) return; //if root null
 
     /*TODO first delete both subtrees */
-    if (node == root)
-    {
-      if (node->left && node->right == nullptr) //last node in tree
-      {
-        delete node;
-        root = nullptr;
-      }
-      else if (node->right == nullptr)
-      {
-
-      }
-      else if (node->left == nullptr)
-      {
-        
-      }
-    }
-    
+    deleteTree(node->left);
+    deleteTree(node->right);
 
     /* TODO then delete the node */
     cout<<"\n Deleting node:"<< node->data;
+    delete node;
 }
 
 /*
@@ -101,10 +88,10 @@ void Tree::deleteTree(Node *node)
 int Tree::sumNodes(Node *node)
 {
 //TODO Base case
+if (node == NULL) return 0; 
 
 //TODO Implement Sum of all nodes
-
-  return 0;
+return (node->data + sumNodes(node->left) + sumNodes(node->right));
 }
 
 /*
