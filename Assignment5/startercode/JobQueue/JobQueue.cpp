@@ -9,15 +9,7 @@ JobQueue::JobQueue()
     queueEnd = 0;
     counter = 0;
 }
-/*
-JobQueue::~JobQueue()
-{
-    while (!isEmpty())
-    {
-        dequeue();
-    }
-}
-*/
+
 bool JobQueue::isEmpty()
 {
     return (counter == 0);
@@ -67,7 +59,7 @@ void JobQueue::dequeue()
         if (queueFront > 19) //potential to break?
         {
             queueFront = 0;
-            queueEnd = 0;
+            //queueEnd = queueFront +1;
         }
     }
     
@@ -109,7 +101,7 @@ int JobQueue::queueSize()
     }
     else
     {
-        int indexDiff = gotQEnd - gotQFront;
+        int indexDiff = gotQEnd + gotQFront;
         returnSize = indexDiff;
     }
 
