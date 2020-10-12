@@ -5,4 +5,4 @@ using namespace std;
 
 int addToArrayAsc(float sortedArray[], int numElements, float newValue);
 void swap(float* xp, float* yp);
-//void selectSort(float arrayToSort[], float );
+void printArr(float sorted_array[], int saSize);
