@@ -26,6 +26,8 @@ int main(int argc, char const *argv[])
             addToArrayAsc(intArr, currSize, linetofloat); //pass arr, amnt passed so far, new float to function
 
             currSize++;
+            printArr(intArr, currSize);
+            cout << "--------" << endl;
         }
 
         inFile.close();
