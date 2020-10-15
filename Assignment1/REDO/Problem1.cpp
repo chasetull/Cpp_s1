@@ -30,7 +30,14 @@ int addToArrayAsc(float sorted_Array[], int num_Elements, float new_Value)
                 }
             }
 
-            swap(&sorted_Array[minInd], &sorted_Array[i]);
+            //swap(&sorted_Array[minInd], &sorted_Array[i]);
+            float *xp;
+            float *yp;
+            xp = &sorted_Array[minInd];
+            yp = &sorted_Array[i];
+            int temp = *xp;
+            *xp = *yp;
+            *yp = temp;
         }
     }
     
@@ -41,13 +48,14 @@ int addToArrayAsc(float sorted_Array[], int num_Elements, float new_Value)
 };
 
 
-
+/*
 void swap(float* xp, float* yp)
 {
     int temp = *xp;
     *xp = *yp;
     *yp = temp;
 };
+*/
 
 void printArr(float sorted_arr[], int saSize)
 {
