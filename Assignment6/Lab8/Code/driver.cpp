@@ -42,6 +42,17 @@ int main (int argc, char* argv[]){
 
 
   // GOLD TODO  - Complete this function
-  cout<< tree.isValidBST() << endl;
+  cout << "---------------- Checking tree validity ----------------" << endl;
+  bool treeIsValid = tree.isValidBST();
 
+  if (treeIsValid)
+  {
+    cout << "Tree is valid." << endl;
+  }
+  else
+  {
+    cout << "Tree is not valid." << endl;
+  }
+  
+  return 0;
 }

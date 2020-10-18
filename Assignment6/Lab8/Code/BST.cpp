@@ -210,29 +210,36 @@ Node* BST::deleteNode(Node *currNode, int value)
   else
   {
     //TODO Case : No child
-    if(currNode->left == NULL && currNode->right == NULL)
+    if(currNode->left == NULL && currNode->right == NULL) //free node and return
     {
-
+        free(currNode);
+        return NULL;
     }
     //TODO Case : Only right child
-    else if(currNode->left == NULL)
+    else if(currNode->left == NULL) //free node and return right child
     {
-
+        Node *temp = currNode->right;
+        free(currNode);
+        return temp;
     }
     //TODO Case : Only left child
-    else if(currNode->right == NULL)
+    else if(currNode->right == NULL) //free node and return left child
     {
-
+        Node *temp = currNode->left;
+        free(currNode);
+        return temp;
     }
     //TODO Case: Both left and right child
     else
     {
       ///Replace with Minimum from right subtree
-
+        Node *minRtree = getMinValueNode(currNode->right);
+        currNode->key = minRtree->key;
+        currNode->right = deleteNode(currNode->right, minRtree->key);
     }
-
   }
-return currNode;
+
+  return currNode;
 }
 
 // This function removes nodes with values in the range low and high.
@@ -251,5 +258,27 @@ void BST::removeRange(int low, int high)
 bool BST::isValidBST()
 {
   //TODO Uncomment below and Complete this function, you can use any logic (add a helper function if you want)
-  return true;
+  //get max and min values of root
+  int minN = getMinValueNode(root)->key;
+  int maxN = getMaxValueNode(root)->key;
+  
+  return ( isValidBSTHelper(root, minN, maxN) );
+}
+
+bool BST::isValidBSTHelper(Node *node, int min, int max)
+{
+    if (node == NULL) //no root/tree
+    {
+        return true;
+    }
+    else if ( node->key < min || node->key > max ) //root is within range, otherwise tree not balanced
+    {
+        return false;
+    }
+    else //recursion to check children of root
+    {
+        return
+            isValidBSTHelper(node->left, min, node->key-1) &&
+            isValidBSTHelper(node->right, node->key+1, max);
+    }  
 }
