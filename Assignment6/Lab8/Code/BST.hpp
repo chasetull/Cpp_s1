@@ -42,6 +42,7 @@ class BST{
         void removeRange(int, int);
         void print2DUtil(int);
         bool isValidBST();
+        bool isValidBSTHelper(Node*, int, int);
 
 };
 #endif
