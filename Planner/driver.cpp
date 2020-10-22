@@ -15,6 +15,7 @@ void menu()
     cout << "3) Delete Assignment" << endl;
     cout << "4) Add Class" << endl;
     cout << "5) Save" << endl;
+    cout << "6) Load Savedata" << endl;
     cout << endl;
 }
 
@@ -95,6 +96,17 @@ int main(int argc, char *argv[])
             cout << "Enter class name to add: " << endl;
             cin >> newclassname;
             plan.addClass(newclassname);
+            break;
+        case 6:
+            if (!plan.isSave())
+            {
+                cout << "Changes not saved. Want to continue? (y/n) : " << endl;
+            }
+            else
+            {
+                plan.readData(savefile);
+            }
+            
             break;
         
         default:
