@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -47,6 +48,14 @@ void Graph::addVertex(int n){
 void Graph::printGraph(){
     // TODO 
     // loop through all vertices and their adjacent vertices
-    
+    for (int i=0; i<vertices.size(); i++)
+    {
+        cout << vertices[i]->key << " --> ";
 
+        for (auto ir = vertices[i]->adj.begin(); ir != vertices[i]->adj.end(); ir++)
+        {
+            cout << ir->v->key << " ";
+        }
+        cout << endl;
+    }
 }
