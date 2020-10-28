@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 		cout << "======Main Menu======" << endl;
 		cout << "1. Delete a movie" << endl;
 		cout << "2. Show the inventory" << endl;
-    cout << "3. Left rotate the tree" << endl;
+    	cout << "3. Left rotate the tree" << endl;
 		cout << "4. Quit" << endl;
 
 		getline(cin, inputLine);
@@ -96,22 +96,26 @@ int main(int argc, char *argv[])
 				movies.inorderTraversal();
 				break;
 			}
-	    case 3:
+	    	case 3:
 			{
 				cout<< "give the titleChar of the node:"<<endl;
 				string nodename;
 				getline(cin, nodename);
 	      		TreeNode* rNode = movies.searchCharNode(nodename[0]);
 				if (rNode)
+				{
 					movies.leftRotation(rNode);
+				}
 				else
+				{
 					cout << "titleChar not found" << endl;
-
-	      break;
+				}
+	      		break;
 			}
 			case 4:
 			{
 				quit = true;
+				break;
 			}
 	}
 }
