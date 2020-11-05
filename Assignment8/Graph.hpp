@@ -22,6 +22,8 @@ struct vertex{
 class Graph
 {
     public:
+        //Graph();
+        //~Graph();
         void addEdge(string v1, string v2);
         void addVertex(string name);
         void displayEdges();
