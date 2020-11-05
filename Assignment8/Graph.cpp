@@ -59,49 +59,48 @@ void Graph::displayEdges()
 
 void Graph::breadthFirstTraverse(string sourceVertex)
 {
-    vertex *srcVx = NULL;
-    queue<string> vQueue;
-
-    for (int i=0; i<vertices.size(); i++)
+    vertex *vStart = NULL;
+    for (unsigned i=0; i<vertices.size(); i++)
     {
         if (vertices[i]->name == sourceVertex)
         {
-            srcVx = vertices[i];
+            vStart = vertices[i];
         }
     }
 
-    if (srcVx == NULL)
-    {
-        cout << "No source vertex" << endl;
-        return;
-    }
-    else
-    {
-        srcVx->visited = true;
-        vQueue.push(srcVx->name);
+    vStart->visited = true;
+    vStart->distance = 0;
+    queue<vertex*> q;
+    q.push(vStart);
 
-        for (int i=0; i<vertices.size(); i++)
+    cout << "Starting vertex (root): " << vStart->name << "-> ";
+    while(!q.empty())
+    {
+        vertex *curr = q.front();
+        q.pop();
+        for (unsigned i=0; i<curr->adj.size(); i++)
         {
-            if (vertices[i]->visited)
+            if (!(curr->adj[i].v)->visited)
             {
-                for (adjVertex vx : vertices[i]->adj)
-                {
-                    if (!vx.v->visited)
-                    {
-                        vQueue.push(vx.v->name);
-                        vx.v->visited = true;
-                    }
-                }
+                (curr->adj[i].v)->distance = curr->distance + 1;
+                (curr->adj[i].v)->visited = true;
+                cout << curr->adj[i].v->name << "(" << curr->adj[i].v->distance << ")" << " ";
+                q.push(curr->adj[i].v);
             }
         }
-
-
-
+        curr->visited = true;
     }
-    while (!vQueue.empty())
+}
+
+void DFS(vertex* startr)
+{
+    if (startr->visited == false)
     {
-        cout << vQueue.front() << endl;
-        vQueue.pop();
+        startr->visited = true;
+        for (unsigned i=0; i<startr->adj.size(); i++)
+        {
+            DFS(startr->adj[i].v);
+        }
     }
 }
 
@@ -111,8 +110,9 @@ int Graph::getConnectedBuildings()
 
     for (int i=0; i<vertices.size(); i++)
     {
-        if (! vertices[i]->visited)
+        if (vertices[i]->visited == false)
         {
+            DFS(vertices[i]);
             count++;
         }
     }
